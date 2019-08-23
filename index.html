@@ -25,6 +25,7 @@
         </div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -38,7 +39,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[57.20576278612602,1.9295693691492457],[64.04623072727202,20.933745386165977]]);
+        }).fitBounds([[55.67182137796332,-9.058345075161089],[68.5480004088244,28.950006958864247]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
         var bounds_group = new L.featureGroup([]);
@@ -53,58 +54,217 @@
         function pop_1000lakes_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">station_id</th>\
-                        <td>' + (feature.properties['station_id'] !== null ? Autolinker.link(String(feature.properties['station_id'])) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['field_1'] !== null ? Autolinker.link(String(feature.properties['field_1'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">lake_name</th>\
-                        <td>' + (feature.properties['lake_name'] !== null ? Autolinker.link(String(feature.properties['lake_name'])) : '') + '</td>\
+                        <th scope="row">Station_ID</th>\
+                        <td>' + (feature.properties['Station_ID'] !== null ? Autolinker.link(String(feature.properties['Station_ID'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">komm</th>\
-                        <td>' + (feature.properties['komm'] !== null ? Autolinker.link(String(feature.properties['komm'])) : '') + '</td>\
+                        <th scope="row">Station_Code</th>\
+                        <td>' + (feature.properties['Station_Code'] !== null ? Autolinker.link(String(feature.properties['Station_Code'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">fylke</th>\
-                        <td>' + (feature.properties['fylke'] !== null ? Autolinker.link(String(feature.properties['fylke'])) : '') + '</td>\
+                        <th scope="row">Station_name</th>\
+                        <td>' + (feature.properties['Station_name'] !== null ? Autolinker.link(String(feature.properties['Station_name'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">nve_vatn_nr</th>\
-                        <td>' + (feature.properties['nve_vatn_nr'] !== null ? Autolinker.link(String(feature.properties['nve_vatn_nr'])) : '') + '</td>\
+                        <th scope="row">Lake.River_name</th>\
+                        <td>' + (feature.properties['Lake.River_name'] !== null ? Autolinker.link(String(feature.properties['Lake.River_name'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">utm_e</th>\
-                        <td>' + (feature.properties['utm_e'] !== null ? Autolinker.link(String(feature.properties['utm_e'])) : '') + '</td>\
+                        <th scope="row">Kommune_Nr</th>\
+                        <td>' + (feature.properties['Kommune_Nr'] !== null ? Autolinker.link(String(feature.properties['Kommune_Nr'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">utm_n</th>\
-                        <td>' + (feature.properties['utm_n'] !== null ? Autolinker.link(String(feature.properties['utm_n'])) : '') + '</td>\
+                        <th scope="row">Kommune</th>\
+                        <td>' + (feature.properties['Kommune'] !== null ? Autolinker.link(String(feature.properties['Kommune'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">lake_area_km2</th>\
-                        <td>' + (feature.properties['lake_area_km2'] !== null ? Autolinker.link(String(feature.properties['lake_area_km2'])) : '') + '</td>\
+                        <th scope="row">Fylke_Nr</th>\
+                        <td>' + (feature.properties['Fylke_Nr'] !== null ? Autolinker.link(String(feature.properties['Fylke_Nr'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">altitude_m</th>\
-                        <td>' + (feature.properties['altitude_m'] !== null ? Autolinker.link(String(feature.properties['altitude_m'])) : '') + '</td>\
+                        <th scope="row">Fylke</th>\
+                        <td>' + (feature.properties['Fylke'] !== null ? Autolinker.link(String(feature.properties['Fylke'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NVE_Vatn_nr</th>\
+                        <td>' + (feature.properties['NVE_Vatn_nr'] !== null ? Autolinker.link(String(feature.properties['NVE_Vatn_nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UTM_Zone</th>\
+                        <td>' + (feature.properties['UTM_Zone'] !== null ? Autolinker.link(String(feature.properties['UTM_Zone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lake_Area</th>\
+                        <td>' + (feature.properties['Lake_Area'] !== null ? Autolinker.link(String(feature.properties['Lake_Area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Altitude</th>\
+                        <td>' + (feature.properties['Altitude'] !== null ? Autolinker.link(String(feature.properties['Altitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Oppdrag_navn</th>\
+                        <td>' + (feature.properties['Oppdrag_navn'] !== null ? Autolinker.link(String(feature.properties['Oppdrag_navn'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Oppdrag_nr</th>\
+                        <td>' + (feature.properties['Oppdrag_nr'] !== null ? Autolinker.link(String(feature.properties['Oppdrag_nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uke_nr</th>\
+                        <td>' + (feature.properties['Uke_nr'] !== null ? Autolinker.link(String(feature.properties['Uke_nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UTM_East</th>\
+                        <td>' + (feature.properties['UTM_East'] !== null ? Autolinker.link(String(feature.properties['UTM_East'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UTM_North</th>\
+                        <td>' + (feature.properties['UTM_North'] !== null ? Autolinker.link(String(feature.properties['UTM_North'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_1000lakes_1_0() {
-            return {
+        function style_1000lakes_1_0(feature) {
+            switch(String(feature.properties['Uke_nr'])) {
+                case '38':
+                    return {
                 pane: 'pane_1000lakes_1',
-                radius: 6.000000000000002,
+                radius: 4.0,
                 opacity: 1,
-                color: 'rgba(50,87,128,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(72,123,182,1.0)',
+                fillColor: 'rgba(250,250,250,1.0)',
+            }
+                    break;
+                case '39':
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,220,220,1.0)',
+            }
+                    break;
+                case '40':
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(189,189,189,1.0)',
+            }
+                    break;
+                case '41':
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(158,158,158,1.0)',
+            }
+                    break;
+                case '42':
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(128,128,128,1.0)',
+            }
+                    break;
+                case '43':
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(97,97,97,1.0)',
+            }
+                    break;
+                case '44':
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(66,66,66,1.0)',
+            }
+                    break;
+                case '45':
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(35,35,35,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_1000lakes_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(5,5,5,1.0)',
+            }
+                    break;
             }
         }
         map.createPane('pane_1000lakes_1');
@@ -130,50 +290,198 @@
         function pop_Selection_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">station_id</th>\
-                        <td>' + (feature.properties['station_id'] !== null ? Autolinker.link(String(feature.properties['station_id'])) : '') + '</td>\
+                        <th scope="row">wkt_geom</th>\
+                        <td>' + (feature.properties['wkt_geom'] !== null ? Autolinker.link(String(feature.properties['wkt_geom'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">lake_name</th>\
-                        <td>' + (feature.properties['lake_name'] !== null ? Autolinker.link(String(feature.properties['lake_name'])) : '') + '</td>\
+                        <th scope="row">field_1_1</th>\
+                        <td>' + (feature.properties['field_1_1'] !== null ? Autolinker.link(String(feature.properties['field_1_1'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">komm</th>\
-                        <td>' + (feature.properties['komm'] !== null ? Autolinker.link(String(feature.properties['komm'])) : '') + '</td>\
+                        <th scope="row">Station_ID</th>\
+                        <td>' + (feature.properties['Station_ID'] !== null ? Autolinker.link(String(feature.properties['Station_ID'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">fylke</th>\
-                        <td>' + (feature.properties['fylke'] !== null ? Autolinker.link(String(feature.properties['fylke'])) : '') + '</td>\
+                        <th scope="row">Station_Code</th>\
+                        <td>' + (feature.properties['Station_Code'] !== null ? Autolinker.link(String(feature.properties['Station_Code'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">nve_vatn_nr</th>\
-                        <td>' + (feature.properties['nve_vatn_nr'] !== null ? Autolinker.link(String(feature.properties['nve_vatn_nr'])) : '') + '</td>\
+                        <th scope="row">Station_name</th>\
+                        <td>' + (feature.properties['Station_name'] !== null ? Autolinker.link(String(feature.properties['Station_name'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">lake_area_km2</th>\
-                        <td>' + (feature.properties['lake_area_km2'] !== null ? Autolinker.link(String(feature.properties['lake_area_km2'])) : '') + '</td>\
+                        <th scope="row">Lake.River_name</th>\
+                        <td>' + (feature.properties['Lake.River_name'] !== null ? Autolinker.link(String(feature.properties['Lake.River_name'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">altitude_m</th>\
-                        <td>' + (feature.properties['altitude_m'] !== null ? Autolinker.link(String(feature.properties['altitude_m'])) : '') + '</td>\
+                        <th scope="row">Kommune_Nr</th>\
+                        <td>' + (feature.properties['Kommune_Nr'] !== null ? Autolinker.link(String(feature.properties['Kommune_Nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kommune</th>\
+                        <td>' + (feature.properties['Kommune'] !== null ? Autolinker.link(String(feature.properties['Kommune'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fylke_Nr</th>\
+                        <td>' + (feature.properties['Fylke_Nr'] !== null ? Autolinker.link(String(feature.properties['Fylke_Nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fylke</th>\
+                        <td>' + (feature.properties['Fylke'] !== null ? Autolinker.link(String(feature.properties['Fylke'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NVE_Vatn_nr</th>\
+                        <td>' + (feature.properties['NVE_Vatn_nr'] !== null ? Autolinker.link(String(feature.properties['NVE_Vatn_nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UTM_Zone</th>\
+                        <td>' + (feature.properties['UTM_Zone'] !== null ? Autolinker.link(String(feature.properties['UTM_Zone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lake_Area</th>\
+                        <td>' + (feature.properties['Lake_Area'] !== null ? Autolinker.link(String(feature.properties['Lake_Area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Altitude</th>\
+                        <td>' + (feature.properties['Altitude'] !== null ? Autolinker.link(String(feature.properties['Altitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Oppdrag_navn</th>\
+                        <td>' + (feature.properties['Oppdrag_navn'] !== null ? Autolinker.link(String(feature.properties['Oppdrag_navn'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Oppdrag_nr</th>\
+                        <td>' + (feature.properties['Oppdrag_nr'] !== null ? Autolinker.link(String(feature.properties['Oppdrag_nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Uke_nr</th>\
+                        <td>' + (feature.properties['Uke_nr'] !== null ? Autolinker.link(String(feature.properties['Uke_nr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UTM_East</th>\
+                        <td>' + (feature.properties['UTM_East'] !== null ? Autolinker.link(String(feature.properties['UTM_East'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>UTM_North</strong><br />' + (feature.properties['UTM_North'] !== null ? Autolinker.link(String(feature.properties['UTM_North'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Selection_2_0() {
-            return {
+        function style_Selection_2_0(feature) {
+            switch(String(feature.properties['Uke_nr'])) {
+                default:
+                    return {
                 pane: 'pane_Selection_2',
-                radius: 6.000000000000001,
+                shape: 'diamond',
+                radius: 6.0,
                 opacity: 1,
-                color: 'rgba(154,74,0,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(255,127,0,1.0)',
+                fillColor: 'rgba(43,131,186,1.0)',
+            }
+                    break;
+                case '39':
+                    return {
+                pane: 'pane_Selection_2',
+                shape: 'diamond',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+            }
+                    break;
+                case '40':
+                    return {
+                pane: 'pane_Selection_2',
+                shape: 'diamond',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(241,124,74,1.0)',
+            }
+                    break;
+                case '41':
+                    return {
+                pane: 'pane_Selection_2',
+                shape: 'diamond',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,201,128,1.0)',
+            }
+                    break;
+                case '43':
+                    return {
+                pane: 'pane_Selection_2',
+                shape: 'diamond',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,1.0)',
+            }
+                    break;
+                case '44':
+                    return {
+                pane: 'pane_Selection_2',
+                shape: 'diamond',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,233,173,1.0)',
+            }
+                    break;
+                case '45':
+                    return {
+                pane: 'pane_Selection_2',
+                shape: 'diamond',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(128,191,172,1.0)',
+            }
+                    break;
             }
         }
         map.createPane('pane_Selection_2');
@@ -188,18 +496,24 @@
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Selection_2_0(feature));
+                return L.shapeMarker(latlng, style_Selection_2_0(feature));
             },
         });
-        var cluster_Selection_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
-            spiderfyDistanceMultiplier: 2});
-        cluster_Selection_2.addLayer(layer_Selection_2);
-
         bounds_group.addLayer(layer_Selection_2);
-        cluster_Selection_2.addTo(map);
+        map.addLayer(layer_Selection_2);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Selection_2.png" /> Selection': cluster_Selection_2,'<img src="legend/1000lakes_1.png" /> 1000 lakes': cluster_1000lakes_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Selection<br /><table><tr><td style="text-align: center;"><img src="legend/Selection_2_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Selection_2_391.png" /></td><td>39</td></tr><tr><td style="text-align: center;"><img src="legend/Selection_2_402.png" /></td><td>40</td></tr><tr><td style="text-align: center;"><img src="legend/Selection_2_413.png" /></td><td>41</td></tr><tr><td style="text-align: center;"><img src="legend/Selection_2_434.png" /></td><td>43</td></tr><tr><td style="text-align: center;"><img src="legend/Selection_2_445.png" /></td><td>44</td></tr><tr><td style="text-align: center;"><img src="legend/Selection_2_456.png" /></td><td>45</td></tr></table>': layer_Selection_2,'1000 lakes<br /><table><tr><td style="text-align: center;"><img src="legend/1000lakes_1_380.png" /></td><td>38</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_391.png" /></td><td>39</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_402.png" /></td><td>40</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_413.png" /></td><td>41</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_424.png" /></td><td>42</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_435.png" /></td><td>43</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_446.png" /></td><td>44</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_457.png" /></td><td>45</td></tr><tr><td style="text-align: center;"><img src="legend/1000lakes_1_8.png" /></td><td></td></tr></table>': cluster_1000lakes_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
         setBounds();
+        resetLabels([layer_1000lakes_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_1000lakes_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_1000lakes_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_1000lakes_1]);
+        });
         </script>
     </body>
 </html>
